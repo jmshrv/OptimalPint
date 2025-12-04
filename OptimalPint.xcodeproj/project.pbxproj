@@ -6,13 +6,31 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1A01D5E52EE202ED00BA1537 /* Catcher in Frameworks */ = {isa = PBXBuildFile; productRef = 1A01D5E42EE202ED00BA1537 /* Catcher */; };
+		1A01D5FD2EE2196000BA1537 /* ErrorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1A01D5FC2EE2196000BA1537 /* ErrorKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		1A01D5C32EDB7B9500BA1537 /* OptimalPint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OptimalPint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		1A01D5DE2EE116BC00BA1537 /* Exceptions for "OptimalPint" folder in "OptimalPint" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 1A01D5C22EDB7B9500BA1537 /* OptimalPint */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		1A01D5C52EDB7B9500BA1537 /* OptimalPint */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1A01D5DE2EE116BC00BA1537 /* Exceptions for "OptimalPint" folder in "OptimalPint" target */,
+			);
 			path = OptimalPint;
 			sourceTree = "<group>";
 		};
@@ -23,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A01D5FD2EE2196000BA1537 /* ErrorKit in Frameworks */,
+				1A01D5E52EE202ED00BA1537 /* Catcher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +85,8 @@
 			);
 			name = OptimalPint;
 			packageProductDependencies = (
+				1A01D5E42EE202ED00BA1537 /* Catcher */,
+				1A01D5FC2EE2196000BA1537 /* ErrorKit */,
 			);
 			productName = OptimalPint;
 			productReference = 1A01D5C32EDB7B9500BA1537 /* OptimalPint.app */;
@@ -94,6 +116,10 @@
 			);
 			mainGroup = 1A01D5BA2EDB7B9500BA1537;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1A01D5E32EE202ED00BA1537 /* XCRemoteSwiftPackageReference "Catcher" */,
+				1A01D5FB2EE2196000BA1537 /* XCRemoteSwiftPackageReference "ErrorKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1A01D5C42EDB7B9500BA1537 /* Products */;
 			projectDirPath = "";
@@ -256,6 +282,8 @@
 				DEVELOPMENT_TEAM = PFNS8PTRM7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OptimalPint/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Optimal Pint can show your location on the map to help you find the nearest Spoons";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -273,7 +301,7 @@
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -288,6 +316,8 @@
 				DEVELOPMENT_TEAM = PFNS8PTRM7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OptimalPint/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Optimal Pint can show your location on the map to help you find the nearest Spoons";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -305,7 +335,7 @@
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -332,6 +362,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1A01D5E32EE202ED00BA1537 /* XCRemoteSwiftPackageReference "Catcher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jmshrv/Catcher";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		1A01D5FB2EE2196000BA1537 /* XCRemoteSwiftPackageReference "ErrorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/FlineDev/ErrorKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1A01D5E42EE202ED00BA1537 /* Catcher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A01D5E32EE202ED00BA1537 /* XCRemoteSwiftPackageReference "Catcher" */;
+			productName = Catcher;
+		};
+		1A01D5FC2EE2196000BA1537 /* ErrorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A01D5FB2EE2196000BA1537 /* XCRemoteSwiftPackageReference "ErrorKit" */;
+			productName = ErrorKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1A01D5BB2EDB7B9500BA1537 /* Project object */;
 }
