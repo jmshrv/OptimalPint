@@ -14,8 +14,10 @@ struct HomeScreen: View {
     var body: some View {
         VenueMap(venues: [])
             .sheet(isPresented: .constant(true)) {
-                LoadingStateHandler(loadingState: venueState) { venues in
-                    VenueList(venues: venues)
+                NavigationStack {
+                    LoadingStateHandler(loadingState: venueState) { venues in
+                        VenueList(venues: venues)
+                    }
                 }
                 .presentationDetents([.medium])
                 .presentationDragIndicator(.visible)

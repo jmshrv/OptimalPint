@@ -41,6 +41,7 @@ struct VenueList: View {
                 }
             }
         }
+        .navigationTitle("Pubs")
         .task {
             await scope.withCatchScopeAsync { @MainActor in
                 for try await update in CLLocationUpdate.liveUpdates() {

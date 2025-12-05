@@ -87,3 +87,59 @@ struct Venue: Codable, Identifiable {
     /// Where the venue is
     let address: Address
 }
+
+struct SalesArea: Codable, Identifiable {
+    let id: Int
+    let name: String
+}
+
+struct MenuLink: Codable, Identifiable {
+    let id: Int
+    let name: String
+    let salesAreaId: Int
+}
+
+struct Menu: Codable {
+    struct Category: Codable {
+        struct ItemGroup: Codable {
+            struct Item: Codable {
+                struct Options: Codable {
+                    struct Portion: Codable {
+                        struct Option: Codable {
+                            struct Value: Codable {
+                                struct Price: Codable {
+                                    let value: Double
+                                }
+
+                                let price: Price
+                            }
+
+                            let value: Value
+                        }
+
+                        let options: [Option]
+                    }
+
+                    struct Linked: Codable {
+                        let name: String
+                    }
+
+                    let portion: Portion
+                    let linked: [Linked]
+                }
+
+                let name: String
+                let description: String
+                let options: Options
+            }
+
+            let name: String
+            let items: [Item]
+        }
+
+        let name: String
+        let itemGroups: [ItemGroup]
+    }
+
+    let categories: [Category]
+}
