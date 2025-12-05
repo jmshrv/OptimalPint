@@ -17,7 +17,7 @@ struct DataWrapper<T: Codable>: Codable {
     let success: Bool
 }
 
-struct Venue: Codable, Identifiable {
+struct Venue: Codable, Hashable, Identifiable {
     static let mock: [Venue] = [
         Venue(
             id: 1,
@@ -58,8 +58,8 @@ struct Venue: Codable, Identifiable {
     ]
 
     /// The venue address, both in human-readable words and a LatLong
-    struct Address: Codable {
-        struct Location: Codable {
+    struct Address: Codable, Hashable {
+        struct Location: Codable, Hashable {
             let longitude: Double
             let latitude: Double
 
@@ -86,6 +86,10 @@ struct Venue: Codable, Identifiable {
 
     /// Where the venue is
     let address: Address
+}
+
+struct FullVenue: Codable {
+    let salesAreas: [SalesArea]
 }
 
 struct SalesArea: Codable, Identifiable {

@@ -8,7 +8,7 @@
 import ErrorKit
 import Foundation
 
-struct Drink {
+struct Drink: Identifiable {
     enum Error: Throwable {
         case invalidUnits(unitString: String)
         
@@ -19,6 +19,9 @@ struct Drink {
             }
         }
     }
+    
+    /// A UUID for the object - has nothing to do with the Spoons API
+    let id = UUID()
     
     /// A human readable name for the drink
     let name: String
@@ -44,14 +47,17 @@ struct Drink {
         return dealPrice >= price
     }
     
-    var optimality: Double {
-        let bestPrice = if let dealPrice {
-            min(price, dealPrice)
-        } else {
-            price
-        }
-        
-        return price / units
+    var optimality: Double {        
+        return (dealPrice ?? price) / units
+    }
+    
+    init(name: String, units: Double, price: Double, dealDescription: String?, dealPrice: Double?, category: String) {
+        self.name = name
+        self.units = units
+        self.price = price
+        self.dealDescription = dealDescription
+        self.dealPrice = dealPrice
+        self.category = category
     }
     
     init?(from item: Menu.Category.ItemGroup.Item, category: String) throws {
@@ -62,11 +68,11 @@ struct Drink {
         else {
             return nil
         }
-
+   
         guard let units = Double(unitsString) else {
             throw Error.invalidUnits(unitString: String(unitsString))
         }
-
+   
         guard
             let price = item.options.portion.options.map({
                 $0.value.price.value
@@ -95,11 +101,24 @@ struct Drink {
             }
             .min { $0.1 < $1.1 }
         
-        self.name = item.name
-        self.units = units
-        self.price = price
-        self.category = category
-        self.dealDescription = bestLinked?.0
-        self.dealPrice = bestLinked?.1
+        self.init(
+            name: item.name,
+            units: units,
+            price: price,
+            dealDescription: bestLinked?.0,
+            dealPrice: bestLinked?.1,
+            category: category
+        )
     }
+    
+    static let mock: [Self] = [
+        .init(
+            name: "Kopparberg Sweet Vintage Pear",
+            units: 3.5,
+            price: 3.7,
+            dealDescription: "Any 2 for £6.40",
+            dealPrice: 3.2,
+            category: "Cider"
+        )
+    ]
 }

@@ -21,23 +21,25 @@ struct VenueList: View {
     
     var body: some View {
         List(venues) { venue in
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(venue.name)
-                    Text(venue.address.town)
-                        .foregroundStyle(.secondary)
-                }
-                
-                Spacer()
-                
-                if let location {
-                    Text(
-                        Measurement(
-                            value: venue.address.location.cl.distance(from: location),
-                            unit: UnitLength.meters
+            NavigationLink(value: venue) {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(venue.name)
+                        Text(venue.address.town)
+                            .foregroundStyle(.secondary)
+                    }
+                    
+                    Spacer()
+                    
+                    if let location {
+                        Text(
+                            Measurement(
+                                value: venue.address.location.cl.distance(from: location),
+                                unit: UnitLength.meters
+                            )
+                            .formatted(.measurement(width: .abbreviated, usage: .road))
                         )
-                        .formatted(.measurement(width: .abbreviated, usage: .road))
-                    )
+                    }
                 }
             }
         }

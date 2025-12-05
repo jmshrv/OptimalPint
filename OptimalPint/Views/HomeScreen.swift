@@ -12,15 +12,17 @@ struct HomeScreen: View {
     @State private var venueState = LoadingState<[Venue]>.initial
 
     var body: some View {
-        VenueMap(venues: [])
+        VenueMap(venues: venuesOrEmpty)
             .sheet(isPresented: .constant(true)) {
                 NavigationStack {
                     LoadingStateHandler(loadingState: venueState) { venues in
                         VenueList(venues: venues)
                     }
+                    .navigationDestination(for: Venue.self) { venue in
+                        DrinksView(venue: venue)
+                    }
                 }
-                .presentationDetents([.medium])
-                .presentationDragIndicator(.visible)
+                .presentationDetents([.medium, .large, .fraction(0.25)])
                 .interactiveDismissDisabled()
                 .presentationBackgroundInteraction(.enabled)
             }
@@ -31,5 +33,9 @@ struct HomeScreen: View {
                     venueState = .error(error)
                 }
             }
+    }
+    
+    var venuesOrEmpty: [Venue] {
+        if case let .loaded(venues) = venueState { venues } else { [] }
     }
 }

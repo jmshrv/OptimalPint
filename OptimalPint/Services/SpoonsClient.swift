@@ -27,10 +27,10 @@ struct SpoonsClient {
         
         let (data, _) = try await URLSession.shared.data(for: request)
         
-        let salesAreas = try JSONDecoder().decode(DataWrapper<[SalesArea]>.self, from: data).data
+        let fullVenue = try JSONDecoder().decode(DataWrapper<FullVenue>.self, from: data).data
         
         let menus = try await withThrowingTaskGroup(of: [MenuLink].self) { group in
-            for salesArea in salesAreas {
+            for salesArea in fullVenue.salesAreas {
                 group.addTask {
                     try await self.menus(for: salesArea, in: venue)
                 }
