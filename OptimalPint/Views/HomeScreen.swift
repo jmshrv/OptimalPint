@@ -22,7 +22,7 @@ struct HomeScreen: View {
                         DrinksView(venue: venue)
                     }
                 }
-                .presentationDetents([.medium, .large, .fraction(0.25)])
+                .presentationDetents([.medium, .large])
                 .interactiveDismissDisabled()
                 .presentationBackgroundInteraction(.enabled)
             }
