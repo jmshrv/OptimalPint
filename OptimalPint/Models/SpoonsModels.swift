@@ -132,12 +132,12 @@ struct Menu: Codable {
                     let linked: [Linked]
                 }
 
-                let name: String
-                let description: String
-                let options: Options
+                let name: String?
+                let description: String?
+                let options: Options?
             }
 
-            let name: String
+            let name: String?
             let items: [Item]
         }
 

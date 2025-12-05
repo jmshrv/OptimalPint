@@ -62,7 +62,7 @@ struct Drink: Identifiable {
     
     init?(from item: Menu.Category.ItemGroup.Item, category: String) throws {
         guard
-            let unitsString = item.description.firstMatch(
+            let description = item.description, let unitsString = description.firstMatch(
                 of: /(\d+(?:\.\d+)?)\s*units/
             )?.output.1
         else {
@@ -74,7 +74,7 @@ struct Drink: Identifiable {
         }
    
         guard
-            let price = item.options.portion.options.map({
+            let options = item.options, let price = options.portion.options.map({
                 $0.value.price.value
             }).max()
         else {
@@ -82,7 +82,7 @@ struct Drink: Identifiable {
         }
         
         // Parse any linked deal like "Any 2 for £6.40" from the linked options' names
-        let bestLinked = item.options.linked
+        let bestLinked = options.linked
             .compactMap { linked -> (String, Double)? in
                 guard
                     let match = linked.name.firstMatch(
@@ -102,7 +102,7 @@ struct Drink: Identifiable {
             .min { $0.1 < $1.1 }
         
         self.init(
-            name: item.name,
+            name: item.name ?? "Unknown",
             units: units,
             price: price,
             dealDescription: bestLinked?.0,
