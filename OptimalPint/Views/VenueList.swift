@@ -13,6 +13,7 @@ struct VenueList: View {
     @Environment(CatchScope.self) private var scope
     
     @State private var location: CLLocation?
+    @State private var searchTerm = ""
     @State private var venues: [Venue]
     
     init(venues: [Venue]) {
@@ -20,7 +21,7 @@ struct VenueList: View {
     }
     
     var body: some View {
-        List(venues) { venue in
+        List(listContent) { venue in
             NavigationLink(value: venue) {
                 HStack {
                     VStack(alignment: .leading) {
@@ -44,6 +45,7 @@ struct VenueList: View {
             }
         }
         .navigationTitle("Pubs")
+        .searchable(text: $searchTerm)
         .task {
             await scope.withCatchScopeAsync { @MainActor in
                 for try await update in CLLocationUpdate.liveUpdates() {
@@ -57,6 +59,22 @@ struct VenueList: View {
                 }
             }
         }
+    }
+    
+    private var listContent: [Venue] {
+        if searchTerm.isEmpty {
+            return venues
+        }
+        
+        let trimmedSearchTerm = searchTerm.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        return
+            venues
+            .filter {
+                $0.name.localizedStandardContains(trimmedSearchTerm)
+                    || $0.address.town.localizedStandardContains(trimmedSearchTerm)
+            }
+            .sorted { $0.name < $1.name }
     }
 }
 
