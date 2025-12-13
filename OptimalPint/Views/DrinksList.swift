@@ -19,7 +19,7 @@ struct DrinksList: View {
             HStack {
                 VStack(alignment: .leading) {
                     Text(drink.name)
-                    Text("\(drink.price.formatted(.currency(code: "GBP"))), \(drink.units.formatted()) units")
+                    Text("\(drink.units.formatted()) units")
                         .foregroundStyle(.secondary)
                     
                     if let dealDescription = drink.dealDescription {
@@ -30,8 +30,12 @@ struct DrinksList: View {
                 
                 Spacer()
                 
-                Text("\(drink.optimality.formatted(.currency(code: "GBP")))/unit")
-                    .bold()
+                VStack(alignment: .trailing) {
+                    Text("\(drink.optimality.formatted(.currency(code: "GBP")))/unit")
+                        .bold()
+                    Text("\(drink.price.formatted(.currency(code: "GBP")))")
+                        .foregroundStyle(.secondary)
+                }
             }
         }
     }
