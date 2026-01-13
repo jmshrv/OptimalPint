@@ -97,7 +97,7 @@ struct SalesArea: Codable, Identifiable {
     let name: String
 }
 
-struct MenuLink: Codable, Identifiable {
+struct MenuLink: Codable, Equatable, Identifiable {
     let id: Int
     let name: String
     let salesAreaId: Int

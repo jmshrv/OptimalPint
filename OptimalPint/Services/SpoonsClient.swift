@@ -95,6 +95,8 @@ enum SpoonsError: Throwable {
 
    var userFriendlyMessage: String {
       switch self {
+      case .noDrinksMenu(foundMenus: []):
+          String(localized: "No menus found. Is the venue open?")
       case .noDrinksMenu(let foundMenus):
           String(localized: "Could not find a drinks menu for the selected venue. Found menus: \(ListFormatter.localizedString(byJoining: foundMenus.map(\.name)))")
       }
