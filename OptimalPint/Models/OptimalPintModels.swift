@@ -61,20 +61,16 @@ struct Drink: Identifiable {
     }
     
     init?(from item: Menu.Category.ItemGroup.Item, category: String) throws {
-        guard
-            let description = item.description, let unitsString = description.firstMatch(
-                of: /(\d+(?:\.\d+)?)\s*units/
-            )?.output.1
-        else {
+        guard let description = item.description, let options = item.options else {
+            return nil
+        }
+        
+        guard let units = try Drink.parseUnits(description: description) ?? Drink.unitsOptions(options: options) else {
             return nil
         }
    
-        guard let units = Double(unitsString) else {
-            throw Error.invalidUnits(unitString: String(unitsString))
-        }
-   
         guard
-            let options = item.options, let price = options.portion.options.map({
+            let price = options.portion.options.map({
                 $0.value.price.value
             }).max()
         else {
@@ -109,6 +105,28 @@ struct Drink: Identifiable {
             dealPrice: bestLinked?.1,
             category: category
         )
+    }
+    
+    private static func parseUnits(description: String) throws -> Double? {
+        guard let unitsString = description.firstMatch(
+                of: /(\d+(?:\.\d+)?)\s*units/
+            )?.output.1
+        else {
+            return nil
+        }
+   
+        guard let units = Double(unitsString) else {
+            throw Error.invalidUnits(unitString: String(unitsString))
+        }
+        
+        return units
+    }
+    
+    private static func unitsOptions(options: Menu.Category.ItemGroup.Item.Options) throws -> Double? {
+        return try options.portion.options.compactMap {
+            try parseUnits(description: $0.label)
+        }
+        .max()
     }
     
     static let mock: [Self] = [

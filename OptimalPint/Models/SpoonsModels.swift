@@ -118,6 +118,7 @@ struct Menu: Codable {
                                 let price: Price
                             }
 
+                            let label: String
                             let value: Value
                         }
 
