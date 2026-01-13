@@ -49,8 +49,9 @@ struct SpoonsClient {
         
         let menu = try await menuDetail(for: drinksMenuLink, in: venue)
         
+        // "Includes a drink" and the "Any x for £y" causes duplicate entries
         return try menu.categories
-            .filter { $0.name != "Includes a drink" }
+            .filter { $0.name != "Includes a drink" && !$0.name.contains(" for ") }
             .flatMap { category in
                 try category.itemGroups.flatMap {
                     try $0.items.compactMap {
