@@ -22,7 +22,7 @@ struct VenueList: View {
     
     var body: some View {
         List(listContent) { venue in
-            NavigationLink(value: venue) {
+            NavigationLink(value: Route.venue(venue)) {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(venue.name)

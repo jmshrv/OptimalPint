@@ -15,10 +15,22 @@ struct HomeScreen: View {
         NavigationStack {
             LoadingStateHandler(loadingState: venueState) { venues in
                 VenueList(venues: venues)
-                    .navigationDestination(for: Venue.self) { venue in
-                        DrinksView(venue: venue)
+                    .toolbar {
+                        ToolbarItem {
+                            NavigationLink(value: Route.map(venues)) {
+                                Label("Map", systemImage: "map")
+                            }
+                        }
                     }
             }
+            .navigationDestination(for: Route.self, destination: { route in
+                switch route {
+                case .map(let venues):
+                    VenueMap(venues: venues)
+                case .venue(let venue):
+                    DrinksView(venue: venue)
+                }
+            })
         }
         .task {
             do {

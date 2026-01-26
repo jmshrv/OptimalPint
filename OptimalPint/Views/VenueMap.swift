@@ -13,9 +13,10 @@ struct VenueMap: View {
     
     @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
     @State private var locationManager = CLLocationManager()
+    @State private var selectedVenue: Venue?
     
     var body: some View {
-        Map(position: $position) {
+        Map(position: $position, selection: $selectedVenue) {
             ForEach(venues) { venue in
                 UserAnnotation()
                 
@@ -25,12 +26,19 @@ struct VenueMap: View {
                     coordinate: venue.address.location.cl.coordinate
                 )
                 .tint(.blue)
+                .tag(venue)
             }
         }
         .mapControls {
             MapUserLocationButton()
             MapCompass()
             MapScaleView()
+        }
+        .sheet(item: $selectedVenue) { venue in
+            NavigationStack {
+                DrinksView(venue: venue)
+            }
+            .presentationDragIndicator(.visible)
         }
         .onAppear {
             if locationManager.authorizationStatus == .notDetermined {
