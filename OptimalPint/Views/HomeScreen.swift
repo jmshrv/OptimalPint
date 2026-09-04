@@ -15,6 +15,8 @@ struct HomeScreen: View {
         NavigationStack {
             LoadingStateHandler(loadingState: venueState) { venues in
                 VenueList(venues: venues)
+                    .navigationTitle("Pubs")
+                    .toolbarTitleDisplayMode(.inlineLarge)
                     .toolbar {
                         ToolbarItem {
                             NavigationLink(value: Route.map(venues)) {

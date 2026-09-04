@@ -44,7 +44,6 @@ struct VenueList: View {
                 }
             }
         }
-        .navigationTitle("Pubs")
         .searchable(text: $searchTerm)
         .task {
             await scope.withCatchScopeAsync { @MainActor in
@@ -79,6 +78,8 @@ struct VenueList: View {
 }
 
 #Preview {
-    VenueList(venues: Venue.mock)
-        .withCatcher()
+    NavigationStack {
+        VenueList(venues: Venue.mock)
+            .withCatcher()
+    }
 }
