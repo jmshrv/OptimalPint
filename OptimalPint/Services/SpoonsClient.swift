@@ -43,7 +43,10 @@ struct SpoonsClient {
             return results
         }
         
-        guard let drinksMenuLink = menus.first(where: { $0.name == "Drinks" }) else {
+        // Some pubs name their drink menus "Drinks*" for some reason. J.J. Moon's at Wembley is
+        // one such pub.
+        let menuNames = ["Drinks", "Drinks*"]
+        guard let drinksMenuLink = menus.first(where: { menuNames.contains($0.name) }) else {
             throw SpoonsError.noDrinksMenu(foundMenus: menus)
         }
         
